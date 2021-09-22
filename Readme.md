@@ -1,7 +1,7 @@
 # Личный проект «Кексобукинг»
 
-* Студент: [Дмитрий Сосипатров](https://up.htmlacademy.ru/javascript/24/user/1756921).
-* Наставник: `Неизвестно`.
+- Студент: [Дмитрий Сосипатров](https://up.htmlacademy.ru/javascript/24/user/1756921).
+- Наставник: [Иван Никитин](https://htmlacademy.ru/profile/inikitin).
 
 ---
 
