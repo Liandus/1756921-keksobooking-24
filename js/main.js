@@ -3,13 +3,7 @@
 Источник данных:
 https://developer.mozilla.org/ru/docs/Web/JavaScript/Reference/Global_Objects/Math/random
 */
-const isIncorrectRange = (min, max) => {
-  if (max <= min || min < 0) {
-    return true;
-  }
-  // return (max <= min || min < 0) ? true : false;
-};
-
+const isIncorrectRange = (min, max) => (max <= min || min < 0);
 
 const getRandomNumberFromRange = (from, to) => {
   if (isIncorrectRange(from, to)) {
