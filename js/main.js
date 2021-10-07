@@ -88,9 +88,30 @@ const getRandomArrayList = (list) => list.slice([getRandomNumberFromRange(0, lis
 const getRandomArrayElement = (elements) => elements[getRandomNumberFromRange(0, elements.length - 1)];
 
 
+const removeElement =(arr, value) => {
+  const index = arr.indexOf(value);
+  if (index > -1) {
+    arr.splice(index, 1);
+  }
+  return arr;
+};
+
+const getAndDelElement = (array) => {
+  let element;
+  if (array.length > 2) {
+    element = getRandomArrayElement(array);
+  } else {
+    element = array.shift();
+  }
+  removeElement(array, element);
+
+  return element;
+};
+
+
 const advertisement = () => ({
   author: {
-    avatar: `img/avatars/user${ getRandomArrayElement(avatarNumbers) }.png`,
+    avatar: `img/avatars/user${ getAndDelElement(avatarNumbers) }.png`,
     /*avatar: `img/avatars/user${  avatarNumber < 10 ? '0' : ''  }${avatarNumber  }.png`,*/
   },
 
@@ -115,6 +136,4 @@ const advertisement = () => ({
 });
 const advertisementList = Array.from({length: advertisementCount}, advertisement);
 
-console.log(advertisement());
-
-console.log(advertisementList);
+advertisementList();
