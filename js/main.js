@@ -35,3 +35,86 @@ const getRandomNumberWithDotFromRange = (from, to, afterDot) => {
 };
 
 getRandomNumberWithDotFromRange(10, 30, 5);
+
+//================================================================================================
+
+//const avatarNumber = getRandomNumberFromRange(1, 10);
+const  avatarNumbers = [
+  '01',
+  '02',
+  '03',
+  '04',
+  '05',
+  '06',
+  '07',
+  '08',
+  '09',
+  '10',
+];
+
+const advertisementCount = 10;
+
+const types = [
+  'palace',
+  'flat',
+  'house',
+  'bungalow',
+  'hotel',
+];
+
+const times = [
+  '12:00',
+  '13:00',
+  '14:00',
+];
+const featuresList = [
+  'wifi',
+  'dishwasher',
+  'parking',
+  'washer',
+  'elevator',
+];
+
+
+const photoList = [
+  'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/duonguyen-8LrGtIxxa4w.jpg',
+  'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/brandon-hoogenboom-SNxQGWxZQi0.jpg',
+  'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/claire-rendall-b6kAwr1i0Iw.jpg',
+];
+
+
+const getRandomArrayList = (list) => list.slice([getRandomNumberFromRange(0, list.length - 1)]);
+
+const getRandomArrayElement = (elements) => elements[getRandomNumberFromRange(0, elements.length - 1)];
+
+
+const advertisement = () => ({
+  author: {
+    avatar: `img/avatars/user${ getRandomArrayElement(avatarNumbers) }.png`,
+    /*avatar: `img/avatars/user${  avatarNumber < 10 ? '0' : ''  }${avatarNumber  }.png`,*/
+  },
+
+  offer: {
+    title: 'Объявление',
+    address: `${location.lat  }, ${  location.lng}`,
+    price:getRandomNumberFromRange(1000, 5000),
+    type: getRandomArrayElement(types),
+    rooms: getRandomNumberFromRange(1, 5),
+    guests: getRandomNumberFromRange(1, 10),
+    checkin: getRandomArrayElement(times),
+    checkout: getRandomArrayElement(times),
+    features: getRandomArrayList(featuresList),
+    description:'Светло, уютно, тепло.',
+    photos: getRandomArrayList(photoList),
+  },
+
+  location: {
+    lat: getRandomNumberWithDotFromRange(35.65000, 35.70000, 5),
+    lng: getRandomNumberWithDotFromRange(139.70000, 139.80000, 5),
+  },
+});
+const advertisementList = Array.from({length: advertisementCount}, advertisement);
+
+console.log(advertisement());
+
+console.log(advertisementList);
