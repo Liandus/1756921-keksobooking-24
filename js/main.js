@@ -81,6 +81,7 @@ const PRICE_MAX = 5000;
 const USERS_COUNT_MAX = ADVERTISMENT_COUNT;
 const AVATAR_PATH = 'img/avatars/user';
 const AVATAR_FORMAT = '.png';
+const NUMBER_FOR_RIGHT_USER_LINK_FORMAT = 10;
 
 let createdUsersCount = 0;
 
@@ -91,14 +92,14 @@ const getRandomArrayElement = (elements) => elements[getRandomNumberFromRange(0,
 const getAvatarLink = () => {
   while (createdUsersCount < USERS_COUNT_MAX) {
     createdUsersCount++;
-    createdUsersCount = (createdUsersCount < 10) ? `0${createdUsersCount}` : createdUsersCount;
+    createdUsersCount = (createdUsersCount < NUMBER_FOR_RIGHT_USER_LINK_FORMAT) ? `0${createdUsersCount}` : createdUsersCount;
     return `${AVATAR_PATH}${createdUsersCount}${AVATAR_FORMAT}`;
   }
 };
 
 const getAdvertisement = () => {
-  const firstCoordinate = getRandomNumberWithDotFromRange(LATITUDE_MIN, LATITUDE_MAX, DETERMINATION_ACCURACY);
-  const secondCoordinate = getRandomNumberWithDotFromRange(LONGITUDE_MIN, LONGITUDE_MAX, DETERMINATION_ACCURACY);
+  const latitude = getRandomNumberWithDotFromRange(LATITUDE_MIN, LATITUDE_MAX, DETERMINATION_ACCURACY);
+  const longitude = getRandomNumberWithDotFromRange(LONGITUDE_MIN, LONGITUDE_MAX, DETERMINATION_ACCURACY);
 
   return {
     author: {
@@ -106,7 +107,7 @@ const getAdvertisement = () => {
     },
     offer: {
       title: 'Объявление',
-      address: `${firstCoordinate}, ${secondCoordinate}`,
+      address: `${latitude}, ${longitude}`,
       price: getRandomNumberFromRange(PRICE_MIN,PRICE_MAX),
       type: getRandomArrayElement(TYPES),
       rooms: getRandomNumberFromRange(AMOUNT_ROOMS_MIN, AMOUNT_ROOMS_MAX),
@@ -118,12 +119,10 @@ const getAdvertisement = () => {
       photos: getRandomArrayList(PHOTO_LIST),
     },
     location: {
-      lat: firstCoordinate,
-      lng: secondCoordinate,
+      lat: latitude,
+      lng: longitude,
     },
   };
 };
 
-const ADVERTISMENT_LIST = Array.from({length: ADVERTISMENT_COUNT}, getAdvertisement);
-
-ADVERTISMENT_LIST();
+const advertismentList = Array.from({length: ADVERTISMENT_COUNT}, getAdvertisement);
