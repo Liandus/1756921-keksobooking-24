@@ -124,5 +124,5 @@ const getAdvertisement = () => {
     },
   };
 };
-
+// eslint-disable-next-line no-unused-vars
 const advertismentList = Array.from({length: ADVERTISMENT_COUNT}, getAdvertisement);
