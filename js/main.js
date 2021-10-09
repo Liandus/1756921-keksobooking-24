@@ -67,44 +67,46 @@ const PHOTO_LIST = [
 ];
 
 const ADVERTISMENT_COUNT = 10;
+const DETERMINATION_ACCURACY = 5;
+const LONGITUDE_MIN = 139.70000;
+const LONGITUDE_MAX = 139.80000;
+const LATITUDE_MIN = 35.65000;
+const LATITUDE_MAX = 35.70000;
 const AMOUNT_ROOMS_MIN = 1;
 const AMOUNT_ROOMS_MAX = 5;
 const AMOUNT_OF_GUESTS_MIN = 1;
 const AMOUNT_OF_GUESTS_MAX = 10;
 const PRICE_MIN = 1000;
 const PRICE_MAX = 5000;
-const MAXIMUM_USERS = ADVERTISMENT_COUNT;
+const USERS_COUNT_MAX = ADVERTISMENT_COUNT;
 const AVATAR_PATH = 'img/avatars/user';
 const AVATAR_FORMAT = '.png';
 
-let minimumUsers = 0;
+let createdUsersCount = 0;
 
 const getRandomArrayList = (list) => list.slice([getRandomNumberFromRange(0, list.length - 1)]);
 
 const getRandomArrayElement = (elements) => elements[getRandomNumberFromRange(0, elements.length - 1)];
 
 const getAvatarLink = () => {
-  while (minimumUsers < MAXIMUM_USERS) {
-    minimumUsers++;
-    minimumUsers = (minimumUsers < 10) ? `0${  minimumUsers}` : minimumUsers;
-    return `${ AVATAR_PATH }${ minimumUsers }${ AVATAR_FORMAT }`;
+  while (createdUsersCount < USERS_COUNT_MAX) {
+    createdUsersCount++;
+    createdUsersCount = (createdUsersCount < 10) ? `0${createdUsersCount}` : createdUsersCount;
+    return `${AVATAR_PATH}${createdUsersCount}${AVATAR_FORMAT}`;
   }
 };
 
-const getAdvertisement = () =>{
-
-  const FIRST_COORDINATE =  getRandomNumberWithDotFromRange(35.65000, 35.70000, 5);
-  const SECOND_COORDINATE =  getRandomNumberWithDotFromRange(139.70000, 139.80000, 5);
+const getAdvertisement = () => {
+  const firstCoordinate = getRandomNumberWithDotFromRange(LATITUDE_MIN, LATITUDE_MAX, DETERMINATION_ACCURACY);
+  const secondCoordinate = getRandomNumberWithDotFromRange(LONGITUDE_MIN, LONGITUDE_MAX, DETERMINATION_ACCURACY);
 
   return {
-
     author: {
       avatar: getAvatarLink(),
     },
-
     offer: {
       title: 'Объявление',
-      address: `${FIRST_COORDINATE }, ${  SECOND_COORDINATE}`,
+      address: `${firstCoordinate}, ${secondCoordinate}`,
       price: getRandomNumberFromRange(PRICE_MIN,PRICE_MAX),
       type: getRandomArrayElement(TYPES),
       rooms: getRandomNumberFromRange(AMOUNT_ROOMS_MIN, AMOUNT_ROOMS_MAX),
@@ -115,14 +117,13 @@ const getAdvertisement = () =>{
       description: 'Светло, уютно, тепло.',
       photos: getRandomArrayList(PHOTO_LIST),
     },
-
     location: {
-      lat: FIRST_COORDINATE,
-      lng: SECOND_COORDINATE,
+      lat: firstCoordinate,
+      lng: secondCoordinate,
     },
   };
 };
 
 const ADVERTISMENT_LIST = Array.from({length: ADVERTISMENT_COUNT}, getAdvertisement);
 
-console.log(ADVERTISMENT_LIST);
+ADVERTISMENT_LIST();
