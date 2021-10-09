@@ -38,23 +38,7 @@ getRandomNumberWithDotFromRange(10, 30, 5);
 
 //================================================================================================
 
-//const avatarNumber = getRandomNumberFromRange(1, 10);
-const  avatarNumbers = [
-  '01',
-  '02',
-  '03',
-  '04',
-  '05',
-  '06',
-  '07',
-  '08',
-  '09',
-  '10',
-];
-
-const advertisementCount = 10;
-
-const types = [
+const TYPES = [
   'palace',
   'flat',
   'house',
@@ -62,12 +46,13 @@ const types = [
   'hotel',
 ];
 
-const times = [
+const TIMES = [
   '12:00',
   '13:00',
   '14:00',
 ];
-const featuresList = [
+
+const FEATURES_LIST = [
   'wifi',
   'dishwasher',
   'parking',
@@ -75,65 +60,69 @@ const featuresList = [
   'elevator',
 ];
 
-
-const photoList = [
+const PHOTO_LIST = [
   'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/duonguyen-8LrGtIxxa4w.jpg',
   'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/brandon-hoogenboom-SNxQGWxZQi0.jpg',
   'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/claire-rendall-b6kAwr1i0Iw.jpg',
 ];
 
+const ADVERTISMENT_COUNT = 10;
+const AMOUNT_ROOMS_MIN = 1;
+const AMOUNT_ROOMS_MAX = 5;
+const AMOUNT_OF_GUESTS_MIN = 1;
+const AMOUNT_OF_GUESTS_MAX = 10;
+const PRICE_MIN = 1000;
+const PRICE_MAX = 5000;
+const MAXIMUM_USERS = ADVERTISMENT_COUNT;
+const AVATAR_PATH = 'img/avatars/user';
+const AVATAR_FORMAT = '.png';
+
+let minimumUsers = 0;
 
 const getRandomArrayList = (list) => list.slice([getRandomNumberFromRange(0, list.length - 1)]);
 
 const getRandomArrayElement = (elements) => elements[getRandomNumberFromRange(0, elements.length - 1)];
 
-
-const removeElement =(arr, value) => {
-  const index = arr.indexOf(value);
-  if (index > -1) {
-    arr.splice(index, 1);
+const getAvatarLink = () => {
+  while (minimumUsers < MAXIMUM_USERS) {
+    minimumUsers++;
+    minimumUsers = (minimumUsers < 10) ? `0${  minimumUsers}` : minimumUsers;
+    return `${ AVATAR_PATH }${ minimumUsers }${ AVATAR_FORMAT }`;
   }
-  return arr;
 };
 
-const getAndDelElement = (array) => {
-  let element;
-  if (array.length > 2) {
-    element = getRandomArrayElement(array);
-  } else {
-    element = array.shift();
-  }
-  removeElement(array, element);
+const getAdvertisement = () =>{
 
-  return element;
+  const FIRST_COORDINATE =  getRandomNumberWithDotFromRange(35.65000, 35.70000, 5);
+  const SECOND_COORDINATE =  getRandomNumberWithDotFromRange(139.70000, 139.80000, 5);
+
+  return {
+
+    author: {
+      avatar: getAvatarLink(),
+    },
+
+    offer: {
+      title: 'Объявление',
+      address: `${FIRST_COORDINATE }, ${  SECOND_COORDINATE}`,
+      price: getRandomNumberFromRange(PRICE_MIN,PRICE_MAX),
+      type: getRandomArrayElement(TYPES),
+      rooms: getRandomNumberFromRange(AMOUNT_ROOMS_MIN, AMOUNT_ROOMS_MAX),
+      guests: getRandomNumberFromRange(AMOUNT_OF_GUESTS_MIN, AMOUNT_OF_GUESTS_MAX),
+      checkin: getRandomArrayElement(TIMES),
+      checkout: getRandomArrayElement(TIMES),
+      features: getRandomArrayList(FEATURES_LIST),
+      description: 'Светло, уютно, тепло.',
+      photos: getRandomArrayList(PHOTO_LIST),
+    },
+
+    location: {
+      lat: FIRST_COORDINATE,
+      lng: SECOND_COORDINATE,
+    },
+  };
 };
 
+const ADVERTISMENT_LIST = Array.from({length: ADVERTISMENT_COUNT}, getAdvertisement);
 
-const advertisement = () => ({
-  author: {
-    avatar: `img/avatars/user${ getAndDelElement(avatarNumbers) }.png`,
-    /*avatar: `img/avatars/user${  avatarNumber < 10 ? '0' : ''  }${avatarNumber  }.png`,*/
-  },
-
-  offer: {
-    title: 'Объявление',
-    address: `${location.lat  }, ${  location.lng}`,
-    price:getRandomNumberFromRange(1000, 5000),
-    type: getRandomArrayElement(types),
-    rooms: getRandomNumberFromRange(1, 5),
-    guests: getRandomNumberFromRange(1, 10),
-    checkin: getRandomArrayElement(times),
-    checkout: getRandomArrayElement(times),
-    features: getRandomArrayList(featuresList),
-    description:'Светло, уютно, тепло.',
-    photos: getRandomArrayList(photoList),
-  },
-
-  location: {
-    lat: getRandomNumberWithDotFromRange(35.65000, 35.70000, 5),
-    lng: getRandomNumberWithDotFromRange(139.70000, 139.80000, 5),
-  },
-});
-const advertisementList = Array.from({length: advertisementCount}, advertisement);
-
-advertisementList();
+console.log(ADVERTISMENT_LIST);
