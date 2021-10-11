@@ -1,4 +1,5 @@
-import {getRandomNumberFromRange, getRandomNumberWithDotFromRange} from './random-number-functions.js';
+import {getRandomNumberFromRange} from './utils/get-rndm-num.js';
+import {getRandomNumberWithDotFromRange} from './utils/get-rndm-float-num.js';
 
 const TYPES = [
   'palace',
