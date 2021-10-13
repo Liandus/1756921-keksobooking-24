@@ -10,6 +10,4 @@ const getRandomNumberWithDotFromRange = (from, to, afterDot) => {
   return Number(number.toFixed(afterDot));
 };
 
-getRandomNumberWithDotFromRange(10, 30, 5);
-
 export{getRandomNumberWithDotFromRange};

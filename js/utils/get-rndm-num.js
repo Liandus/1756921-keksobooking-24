@@ -9,6 +9,4 @@ const getRandomNumberFromRange = (from, to) => {
   return Math.floor(Math.random() * (to - from + 1)) + from;
 };
 
-getRandomNumberFromRange(0, 10);
-
 export {getRandomNumberFromRange};
