@@ -1,1 +1,3 @@
-import './advertisments.js';
+import {showAdvertisement} from './advertisements.js';
+
+showAdvertisement();
