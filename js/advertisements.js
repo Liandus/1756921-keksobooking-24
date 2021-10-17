@@ -10,8 +10,6 @@ const HOUSE_TYPES = {
   hotel: 'Отель',
 };
 
-const getCyrillicNameOfTypeHouse = (typeOfHouse, dataAboutType) => typeOfHouse[dataAboutType];
-
 const showAdvertisement = () => {
   advertisementList.forEach((ad) => {
     const advertisement = advertisementTemplate.cloneNode(true);
@@ -19,7 +17,7 @@ const showAdvertisement = () => {
     const photoContainer = advertisement.querySelector('.popup__photos');
     const photoTemplate = photoContainer.querySelector('.popup__photo');
 
-    if (ad.offer.features === null || ad.offer.features === undefined) {
+    if (!ad.offer.features) {
       advertisement.querySelector('.popup__features').remove();
     } else {
       const modificators = ad.offer.features.map((featureEl) => `popup__feature--${featureEl}`);
@@ -31,7 +29,7 @@ const showAdvertisement = () => {
       });
     }
 
-    if (ad.offer.photos === null || ad.offer.photos === undefined){
+    if (!ad.offer.photos) {
       photoContainer.remove();
     } else {
       for (let i = 0; i < ad.offer.photos.length; i++) {
@@ -45,13 +43,13 @@ const showAdvertisement = () => {
     photoContainer.removeChild(photoTemplate);
 
     advertisement.querySelector('.popup__title').textContent = ad.offer.title;
-    advertisement.querySelector('.popup__text--address').textContent = ad.offer.adress;
+    advertisement.querySelector('.popup__text--address').textContent = ad.offer.address;
     advertisement.querySelector('.popup__text--price').textContent = `${ad.offer.price} ₽/ночь`;
     advertisement.querySelector('.popup__text--capacity').textContent = `${ad.offer.rooms} комнаты для ${ad.offer.guests} гостей`;
     advertisement.querySelector('.popup__text--time').textContent = `Заезд после ${ad.offer.checkin}, выезд до ${ad.offer.checkout}`;
     advertisement.querySelector('.popup__description').textContent = ad.offer.description;
     advertisement.querySelector('.popup__avatar').src = ad.author.avatar;
-    advertisement.querySelector('.popup__type').textContent = getCyrillicNameOfTypeHouse(HOUSE_TYPES, ad.offer.type);
+    advertisement.querySelector('.popup__type').textContent = HOUSE_TYPES[ad.offer.type];
 
     advertisementsBlock.appendChild(advertisement);
   });

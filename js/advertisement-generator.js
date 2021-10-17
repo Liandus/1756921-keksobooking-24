@@ -70,7 +70,7 @@ const getAdvertisement = () => {
     },
     offer: {
       title: 'Объявление',
-      adress: `${latitude}, ${longitude}`,
+      address: `${latitude}, ${longitude}`,
       price: getRandomNumberFromRange(PRICE_MIN,PRICE_MAX),
       type: getRandomArrayElement(TYPES),
       rooms: getRandomNumberFromRange(AMOUNT_ROOMS_MIN, AMOUNT_ROOMS_MAX),
