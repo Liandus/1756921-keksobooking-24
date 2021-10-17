@@ -29,7 +29,7 @@ const PHOTO_LIST = [
   'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/claire-rendall-b6kAwr1i0Iw.jpg',
 ];
 
-const ADVERTISMENT_COUNT = 10;
+const ADVERTISEMENT_COUNT = 1;
 const DETERMINATION_ACCURACY = 5;
 const LONGITUDE_MIN = 139.70000;
 const LONGITUDE_MAX = 139.80000;
@@ -41,7 +41,7 @@ const AMOUNT_OF_GUESTS_MIN = 1;
 const AMOUNT_OF_GUESTS_MAX = 10;
 const PRICE_MIN = 1000;
 const PRICE_MAX = 5000;
-const USERS_COUNT_MAX = ADVERTISMENT_COUNT;
+const USERS_COUNT_MAX = ADVERTISEMENT_COUNT;
 const AVATAR_PATH = 'img/avatars/user';
 const AVATAR_FORMAT = '.png';
 const NUMBER_FOR_RIGHT_USER_LINK_FORMAT = 10;
@@ -88,6 +88,6 @@ const getAdvertisement = () => {
   };
 };
 
-const advertismentList = Array.from({length: ADVERTISMENT_COUNT}, getAdvertisement);
+const advertisementList = Array.from({length: ADVERTISEMENT_COUNT}, getAdvertisement);
 
-export {advertismentList};
+export {advertisementList};
