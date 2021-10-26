@@ -1,7 +1,2 @@
-const getAttribute = (fieldNeedToAtribute, atributeName, atributeValue) => {
-  fieldNeedToAtribute.forEach((element) => {
-    element.setAttribute(atributeName, atributeValue);
-  });
-};
-
-export {getAttribute};
+const toSetAttribute = (fieldNeedToAtribute, atributeName, atributeValue) => fieldNeedToAtribute.setAttribute(atributeName, atributeValue);
+export {toSetAttribute};

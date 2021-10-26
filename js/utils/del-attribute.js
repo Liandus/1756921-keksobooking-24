@@ -1,7 +1,3 @@
-const deleteAttribute = (fieldNeedToRemoveAtribute, atributeName) => {
-  fieldNeedToRemoveAtribute.forEach((element) => {
-    element.removeAttribute(atributeName);
-  });
-};
+const deleteAttribute = (fieldNeedToRemoveAtribute, atributeName) => fieldNeedToRemoveAtribute.removeAttribute(atributeName);
 
 export {deleteAttribute};
