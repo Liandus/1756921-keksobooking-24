@@ -1,5 +1,5 @@
 import {isEscapeKey} from './utils/is-escape.js';
-import {synchronizeTime, checkTitleValidity, setRightValueBetweenTypeAndPrice, checkPriceValidity, checkRoomToGuestValidity} from './validators.js';
+import {synchronizeTime, checkTitleValidity, setPriceByHouseType, checkPriceValidity, checkRoomToGuestValidity} from './validators.js';
 
 const formEl = document.querySelector('.ad-form');
 const userAdTitleEl = formEl.querySelector('#title');
@@ -11,11 +11,11 @@ const timeInEl = formEl.querySelector('#timein');
 const timeOutEl = formEl.querySelector('#timeout');
 const submitButtonEl = formEl.querySelector('.ad-form__submit');
 const successPopupTemplate = document.querySelector('#success').content.querySelector('.success');
-/*eslint-disable-next-line no-unused-vars*/
 const INITIAL_AD_PRICE_VALUE_MIN = 0;
 const AD_PRICE_VALUE_MAX = 1000000;
 const AD_TITLE_LENGTH_MIN = 30;
 const AD_TITLE_LENGTH_MAX = 100;
+userPriceEl.min = INITIAL_AD_PRICE_VALUE_MIN;
 const adPriceValueMin = userPriceEl.min;
 
 /*eslint-disable-next-line no-unused-vars*/
@@ -33,38 +33,43 @@ const showSuccesPopup = () => {
   });
 };
 
-const onUserAdTitleElInput = () => {
+const onUserAdTitleInput = () => {
   checkTitleValidity(userAdTitleEl, AD_TITLE_LENGTH_MIN, AD_TITLE_LENGTH_MAX);
 };
 
-const onUserPriceElInput = () => {
+const onUserPriceInput = () => {
   checkPriceValidity(userPriceEl, adPriceValueMin, AD_PRICE_VALUE_MAX);
 };
 
-const onTypeHouseElChange = () => {
-  setRightValueBetweenTypeAndPrice(typeHouseEl, userPriceEl);
+const onTypeHouseChange = () => {
+  setPriceByHouseType(typeHouseEl, userPriceEl);
+};
+//TODO сделал один обработчик, перестала работать синхронизация, попробовать разобраться в чем дело
+/*eslint-disable-next-line no-unused-vars*/
+const onTimeChange = (selectTime, changeTime) => {
+  synchronizeTime(selectTime, changeTime);
 };
 
-const onTimeInElChange = () => {
+const onTimeInChange = () => {
   synchronizeTime(timeInEl, timeOutEl);
 };
 
-const onTimeOutElChange = () => {
+const onTimeOutChange = () => {
   synchronizeTime(timeOutEl, timeInEl);
 };
 
-const onsubmitButtonElClick = (evt) => {
+const onSubmitButtonClick = (evt) => {
   checkRoomToGuestValidity(evt, quantityRoomsEl, quantityGuestsEl);
 };
 
-userAdTitleEl.addEventListener('input', onUserAdTitleElInput);
+userAdTitleEl.addEventListener('input', onUserAdTitleInput);
 
-userPriceEl.addEventListener('input', onUserPriceElInput);
+userPriceEl.addEventListener('input', onUserPriceInput);
 
-typeHouseEl.addEventListener('change', onTypeHouseElChange);
+typeHouseEl.addEventListener('change', onTypeHouseChange);
 
-timeInEl.addEventListener('change', onTimeInElChange);
+timeInEl.addEventListener('change', onTimeInChange);
 
-timeOutEl.addEventListener('change', onTimeOutElChange);
+timeOutEl.addEventListener('change', onTimeOutChange);
 
-submitButtonEl.addEventListener('click', onsubmitButtonElClick);
+submitButtonEl.addEventListener('click', onSubmitButtonClick);

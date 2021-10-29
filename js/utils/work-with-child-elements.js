@@ -1,7 +1,7 @@
-const setOrDelSomeAttributeOnChild = (parent, setOrDelFunction, attribute) => {
+const setAttributeOnChild = (parent, setFunction, attribute) => {
   for (const element of parent.children) {
-    setOrDelFunction(element, attribute, '');
+    setFunction(element, attribute, '');
   }
 };
 
-export {setOrDelSomeAttributeOnChild};
+export {setAttributeOnChild};

@@ -1,31 +1,4 @@
-const PRICE_HOUSE_TYPES = {
-  palace: 10000,
-  flat: 1000,
-  house: 5000,
-  bungalow: 0,
-  hotel: 3000,
-};
-
-const QUANTITY_GUESTS_VALUE = {
-  ONE_GUEST: '1',
-  TWO_GUESTS: '2',
-  THREE_GUESTS: '3',
-  NO_GUESTS: '0',
-};
-
-const QUANTITY_ROOMS_VALUE = {
-  ONE_ROOM: '1',
-  TWO_ROOMS: '2',
-  THREE_ROOMS: '3',
-  HUNDRED_ROOMS: '100',
-};
-
-const STATE_WHEN_ROOMS_IS_VALID = {
-  ONE_ROOM_VALIDITY: [QUANTITY_GUESTS_VALUE.ONE_GUEST],
-  TWO_ROOMS_VALIDITY: [QUANTITY_GUESTS_VALUE.ONE_GUEST, QUANTITY_GUESTS_VALUE.TWO_GUESTS],
-  THREE_ROOMS_VALIDITY: [QUANTITY_GUESTS_VALUE.ONE_GUEST, QUANTITY_GUESTS_VALUE.TWO_GUESTS, QUANTITY_GUESTS_VALUE.THREE_GUESTS],
-  HUNDRED_ROOMS_VALIDITY: [QUANTITY_GUESTS_VALUE.NO_GUESTS],
-};
+import {PriceHouseTypes, QuantityRoomsValue, StateWhenRoomsIsValid} from './consts.js';
 
 const synchronizeTime = (selectedTime, changedTime) => {
   const timeInOption = selectedTime.options[selectedTime.selectedIndex];
@@ -44,10 +17,10 @@ const checkTitleValidity = (inputWeNeedCheck, minQuantitySymbols, maxQuantitySym
   }
 };
 
-const setRightValueBetweenTypeAndPrice = (selectedType, changedPrice) => {
+const setPriceByHouseType = (selectedType, changedPrice) => {
   const typeOption = selectedType.options[selectedType.selectedIndex];
-  changedPrice.min = PRICE_HOUSE_TYPES[typeOption.value];
-  changedPrice.placeholder = PRICE_HOUSE_TYPES[typeOption.value];
+  changedPrice.min = PriceHouseTypes[typeOption.value];
+  changedPrice.placeholder = PriceHouseTypes[typeOption.value];
 };
 
 const checkPriceValidity = (inputWeNeedCheck, minPrice, maxPrice) => {
@@ -62,51 +35,36 @@ const checkPriceValidity = (inputWeNeedCheck, minPrice, maxPrice) => {
   }
 };
 
+/*TODO пока сделал так, если перенести константы инпутов и селектов сюда из forms вероятно все сделать покрасивее получится,
+ и возможно это решит проблему с синхронайз тайм*/
 const checkRoomToGuestValidity = (evt, inputWeNeedCheck, inputMatch) => {
   const roomsOption = inputWeNeedCheck.options[inputWeNeedCheck.selectedIndex].value;
 
+  const isRoomValid = (whichRoom, whatMessage) => {
+    if (!whichRoom.includes(inputMatch.value)) {
+      inputWeNeedCheck.style.border = '4px solid rgb(217 38 2)';
+      inputWeNeedCheck.setCustomValidity(whatMessage);
+      evt.preventDefault;
+    } else {
+      inputWeNeedCheck.style.border = '';
+      inputWeNeedCheck.setCustomValidity('');
+    }
+  };
+
   switch(roomsOption) {
-    case QUANTITY_ROOMS_VALUE.ONE_ROOM:
-      if (!STATE_WHEN_ROOMS_IS_VALID.ONE_ROOM_VALIDITY.includes(inputMatch.value)) {
-        inputWeNeedCheck.style.border = '4px solid rgb(217 38 2)';
-        inputWeNeedCheck.setCustomValidity('Количество комнат не подходит под количество гостей');
-        evt.preventDefault;
-      } else {
-        inputWeNeedCheck.style.border = '';
-        inputWeNeedCheck.setCustomValidity('');
-      }
+    case QuantityRoomsValue.ONE_ROOM:
+      isRoomValid(StateWhenRoomsIsValid.ONE_ROOM_VALIDITY, 'Количество комнат не подходит под количество гостей');
       break;
-    case QUANTITY_ROOMS_VALUE.TWO_ROOMS:
-      if (!STATE_WHEN_ROOMS_IS_VALID.TWO_ROOMS_VALIDITY.includes(inputMatch.value)) {
-        inputWeNeedCheck.style.border = '4px solid rgb(217 38 2)';
-        inputWeNeedCheck.setCustomValidity('Количество комнат не подходит под количество гостей');
-        evt.preventDefault;
-      } else {
-        inputWeNeedCheck.style.border = '';
-        inputWeNeedCheck.setCustomValidity('');
-      }
+    case QuantityRoomsValue.TWO_ROOMS:
+      isRoomValid(StateWhenRoomsIsValid.TWO_ROOMS_VALIDITY, 'Количество комнат не подходит под количество гостей');
       break;
-    case QUANTITY_ROOMS_VALUE.THREE_ROOMS:
-      if (!STATE_WHEN_ROOMS_IS_VALID.THREE_ROOMS_VALIDITY.includes(inputMatch.value)) {
-        inputWeNeedCheck.style.border = '4px solid rgb(217 38 2)';
-        inputWeNeedCheck.setCustomValidity('Количество комнат не подходит под количество гостей');
-        evt.preventDefault;
-      } else {
-        inputWeNeedCheck.style.border = '';
-        inputWeNeedCheck.setCustomValidity('');
-      }
+    case QuantityRoomsValue.THREE_ROOMS:
+      isRoomValid(StateWhenRoomsIsValid.THREE_ROOMS_VALIDITY, 'Количество комнат не подходит под количество гостей');
       break;
-    case QUANTITY_ROOMS_VALUE.HUNDRED_ROOMS:
-      if (!STATE_WHEN_ROOMS_IS_VALID.HUNDRED_ROOMS_VALIDITY.includes(inputMatch.value)) {
-        inputWeNeedCheck.style.border = '4px solid rgb(217 38 2)';
-        inputWeNeedCheck.setCustomValidity('100 комнат? точно не для гостей!)');
-        evt.preventDefault;
-      } else {
-        inputWeNeedCheck.style.border = '';
-        inputWeNeedCheck.setCustomValidity('');
-      }
+    case QuantityRoomsValue.HUNDRED_ROOMS:
+      isRoomValid(StateWhenRoomsIsValid.HUNDRED_ROOMS_VALIDITY, '100 комнат? точно не для гостей!)');
       break;
   }
 };
 
-export {synchronizeTime, checkTitleValidity, setRightValueBetweenTypeAndPrice, checkPriceValidity, checkRoomToGuestValidity};
+export {synchronizeTime, checkTitleValidity, setPriceByHouseType, checkPriceValidity, checkRoomToGuestValidity};
