@@ -29,7 +29,7 @@ const PHOTO_LIST = [
   'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/claire-rendall-b6kAwr1i0Iw.jpg',
 ];
 
-const ADVERTISEMENT_COUNT = 1;
+const ADVERTISEMENT_COUNT = 10;
 const DETERMINATION_ACCURACY = 5;
 const LONGITUDE_MIN = 139.70000;
 const LONGITUDE_MAX = 139.80000;
