@@ -1,12 +1,14 @@
 import {activateForm, deactivateForm} from './forms-act-deact.js';
 import {showAdvertisement} from './advertisements.js';
 import {advertisementList} from './advertisement-generator.js';
-import {INITIAL_LAT, INITIAL_LNG, INITIAL_ZOOM} from './consts.js';
 const addressEl = document.querySelector('#address');
+const MAP_INITIAL_LAT = 35.71247;
+const MAP_INITIAL_LNG = 139.78967;
+const MAP_INITIAL_ZOOM = 12;
 
 const getAddress = (markerCoordinate) => {
   const markerPoints = Object.values(markerCoordinate);
-  return addressEl.value = `${markerPoints[0].toFixed(5)}, ${markerPoints[1].toFixed(5)}`;
+  return `${markerPoints[0].toFixed(5)}, ${markerPoints[1].toFixed(5)}`;
 };
 
 deactivateForm();
@@ -16,9 +18,9 @@ const map = L.map('map-canvas')
     activateForm();
   })
   .setView({
-    lat: INITIAL_LAT,
-    lng: INITIAL_LNG,
-  }, INITIAL_ZOOM);
+    lat: MAP_INITIAL_LAT,
+    lng: MAP_INITIAL_LNG,
+  }, MAP_INITIAL_ZOOM);
 
 L.tileLayer(
   'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
@@ -56,8 +58,8 @@ const createMarkers = (point) => {
 
 const mainMarker = L.marker(
   {
-    lat: INITIAL_LAT,
-    lng: INITIAL_LNG,
+    lat: MAP_INITIAL_LAT,
+    lng: MAP_INITIAL_LNG,
   },
   {
     draggable: true,
@@ -74,5 +76,5 @@ advertisementList.forEach((advertisementEl) => {
 addressEl.value = getAddress(mainMarker.getLatLng());
 
 mainMarker.on('moveend', (evt) => {
-  getAddress(evt.target.getLatLng());
+  addressEl.value = getAddress(evt.target.getLatLng());
 });

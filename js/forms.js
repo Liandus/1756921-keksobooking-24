@@ -1,6 +1,5 @@
 import {isEscapeKey} from './utils/is-escape.js';
 import {synchronizeTime, checkTitleValidity, setPriceByHouseType, checkPriceValidity, checkRoomToGuestValidity} from './validators.js';
-import {INITIAL_AD_PRICE_VALUE_MIN, AD_PRICE_VALUE_MAX, AD_TITLE_LENGTH_MIN, AD_TITLE_LENGTH_MAX} from './consts.js';
 const formEl = document.querySelector('.ad-form');
 const userAdTitleEl = formEl.querySelector('#title');
 const userPriceEl = formEl.querySelector('#price');
@@ -11,6 +10,10 @@ const timeInEl = formEl.querySelector('#timein');
 const timeOutEl = formEl.querySelector('#timeout');
 const submitButtonEl = formEl.querySelector('.ad-form__submit');
 const successPopupTemplate = document.querySelector('#success').content.querySelector('.success');
+const INITIAL_AD_PRICE_VALUE_MIN = 0;
+const AD_PRICE_VALUE_MAX = 1000000;
+const AD_TITLE_LENGTH_MIN = 30;
+const AD_TITLE_LENGTH_MAX = 100;
 userPriceEl.min = INITIAL_AD_PRICE_VALUE_MIN;
 const adPriceValueMin = userPriceEl.min;
 

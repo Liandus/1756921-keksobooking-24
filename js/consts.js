@@ -1,11 +1,3 @@
-const INITIAL_LAT = 35.71247;
-const INITIAL_LNG = 139.78967;
-const INITIAL_ZOOM = 12;
-const INITIAL_AD_PRICE_VALUE_MIN = 0;
-const AD_PRICE_VALUE_MAX = 1000000;
-const AD_TITLE_LENGTH_MIN = 30;
-const AD_TITLE_LENGTH_MAX = 100;
-
 const PriceHouseTypes = {
   palace: 10000,
   flat: 1000,
@@ -35,5 +27,4 @@ const StateWhenRoomsIsValid = {
   HUNDRED_ROOMS_VALIDITY: [QuantityGuestsValue.NO_GUESTS],
 };
 
-export {PriceHouseTypes, QuantityRoomsValue, StateWhenRoomsIsValid, INITIAL_LAT, INITIAL_LNG, INITIAL_ZOOM, INITIAL_AD_PRICE_VALUE_MIN,
-  AD_PRICE_VALUE_MAX, AD_TITLE_LENGTH_MIN, AD_TITLE_LENGTH_MAX};
+export {PriceHouseTypes, QuantityRoomsValue, StateWhenRoomsIsValid};
