@@ -1,11 +1,12 @@
 import {activateForm, deactivateForm} from './forms-act-deact.js';
 import {showAdvertisement} from './advertisements.js';
 import {advertisementList} from './advertisement-generator.js';
+import {INITIAL_LAT, INITIAL_LNG, INITIAL_ZOOM} from './consts.js';
 const addressEl = document.querySelector('#address');
 
 const getAddress = (markerCoordinate) => {
   const markerPoints = Object.values(markerCoordinate);
-  addressEl.value = `${markerPoints[0].toFixed(5)}, ${markerPoints[1].toFixed(5)}`;
+  return addressEl.value = `${markerPoints[0].toFixed(5)}, ${markerPoints[1].toFixed(5)}`;
 };
 
 deactivateForm();
@@ -15,9 +16,9 @@ const map = L.map('map-canvas')
     activateForm();
   })
   .setView({
-    lat: 35.71247,
-    lng: 139.78967,
-  }, 12);
+    lat: INITIAL_LAT,
+    lng: INITIAL_LNG,
+  }, INITIAL_ZOOM);
 
 L.tileLayer(
   'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
@@ -55,8 +56,8 @@ const createMarkers = (point) => {
 
 const mainMarker = L.marker(
   {
-    lat: 35.71247,
-    lng: 139.78967,
+    lat: INITIAL_LAT,
+    lng: INITIAL_LNG,
   },
   {
     draggable: true,
@@ -70,11 +71,7 @@ advertisementList.forEach((advertisementEl) => {
   createMarkers(advertisementEl);
 });
 
-/*TODO не работает с этой же функцией хотя по сути должно, попробовать разобраться
 addressEl.value = getAddress(mainMarker.getLatLng());
-хотя запись ниже работает!
-*/
-addressEl.value = Object.values(mainMarker.getLatLng()).join(', ');
 
 mainMarker.on('moveend', (evt) => {
   getAddress(evt.target.getLatLng());
