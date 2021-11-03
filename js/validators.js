@@ -37,17 +37,17 @@ const checkPriceValidity = (inputWeNeedCheck, minPrice, maxPrice) => {
 
 /*TODO пока сделал так, если перенести константы инпутов и селектов сюда из forms вероятно все сделать покрасивее получится,
  и возможно это решит проблему с синхронайз тайм*/
-const checkRoomToGuestValidity = (evt, inputWeNeedCheck, inputMatch) => {
-  const roomsOption = inputWeNeedCheck.options[inputWeNeedCheck.selectedIndex].value;
+const checkRoomToGuestValidity = (evt, input, inputMatch) => {
+  const roomsOption = input.options[input.selectedIndex].value;
 
-  const isRoomValid = (whichRoom, whatMessage) => {
-    if (!whichRoom.includes(inputMatch.value)) {
-      inputWeNeedCheck.style.border = '4px solid rgb(217 38 2)';
-      inputWeNeedCheck.setCustomValidity(whatMessage);
+  const isRoomValid = (room, validationComment) => {
+    if (!room.includes(inputMatch.value)) {
+      input.style.border = '4px solid rgb(217 38 2)';
+      input.setCustomValidity(validationComment);
       evt.preventDefault;
     } else {
-      inputWeNeedCheck.style.border = '';
-      inputWeNeedCheck.setCustomValidity('');
+      input.style.border = '';
+      input.setCustomValidity('');
     }
   };
 

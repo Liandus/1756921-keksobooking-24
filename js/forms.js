@@ -1,6 +1,5 @@
 import {isEscapeKey} from './utils/is-escape.js';
 import {synchronizeTime, checkTitleValidity, setPriceByHouseType, checkPriceValidity, checkRoomToGuestValidity} from './validators.js';
-
 const formEl = document.querySelector('.ad-form');
 const userAdTitleEl = formEl.querySelector('#title');
 const userPriceEl = formEl.querySelector('#price');
