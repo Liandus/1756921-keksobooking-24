@@ -1012,6 +1012,22 @@ fieldset {
   opacity: 0.6;
 }
 
+.error-connect {
+width: 100%;
+position: absolute;
+top: 0;
+left: 0;
+z-index: 100;
+background-color: #bd0836;
+}
+
+.error-connect-message {
+  font-size: 20px;
+  text-align: center;
+  padding: 14px;
+  color: white;
+}
+
 .visually-hidden {
   position: absolute;
 

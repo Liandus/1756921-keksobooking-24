@@ -1,6 +1,7 @@
 import {activateForm, deactivateForm} from './forms-act-deact.js';
 import {showAdvertisement} from './advertisements.js';
-import {advertisementList} from './advertisement-generator.js';
+import {dataLoad} from './server-api.js';
+import {showMessage} from './utils/error-message.js';
 const addressEl = document.querySelector('#address');
 const MAP_INITIAL_LAT = 35.71247;
 const MAP_INITIAL_LNG = 139.78967;
@@ -69,12 +70,34 @@ const mainMarker = L.marker(
 
 mainMarker.addTo(map);
 
-advertisementList.forEach((advertisementEl) => {
-  createMarkers(advertisementEl);
-});
+const loadToMarkers = (data) => {
+  data.forEach((dataEl) => {
+    createMarkers(dataEl);
+  });
+};
+
+dataLoad(loadToMarkers, showMessage);
 
 addressEl.value = getAddress(mainMarker.getLatLng());
 
 mainMarker.on('moveend', (evt) => {
   addressEl.value = getAddress(evt.target.getLatLng());
 });
+
+const mapReset = () => {
+  mainMarker.setLatLng({
+    lat: MAP_INITIAL_LAT,
+    lng: MAP_INITIAL_LNG,
+  });
+
+  map.setView({
+    lat: MAP_INITIAL_LAT,
+    lng: MAP_INITIAL_LNG,
+  }, MAP_INITIAL_ZOOM);
+
+  map.closePopup();
+
+  addressEl.value = getAddress(mainMarker.getLatLng());
+};
+
+export {mapReset};
