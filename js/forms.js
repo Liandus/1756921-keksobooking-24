@@ -66,10 +66,6 @@ timeInEl.addEventListener('change', () => onTimeChange(timeInEl, timeOutEl));
 
 timeOutEl.addEventListener('change', () => onTimeChange(timeOutEl, timeInEl));
 
-/*timeInEl.addEventListener('change', onTimeInChange);
-
-timeOutEl.addEventListener('change', onTimeOutChange);*/
-
 submitButton.addEventListener('click', onSubmitButtonClick);
 
 resetButton.addEventListener('click', onResetClick);

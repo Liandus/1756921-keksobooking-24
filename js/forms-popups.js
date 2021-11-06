@@ -4,33 +4,30 @@ const successPopupTemplate = document.querySelector('#success').content.querySel
 const errorPopupTemplate = document.querySelector('#error').content.querySelector('.error');
 const tryAgainButton = document.querySelector('.error__button');
 
-const close = (evt) => {
-  if (isEscapeKey(evt)) {
-    evt.preventDefault();
-    closePopup();
-  }
-};
-
-const onDocumentEscKeydown = (evt) => {
-  close(evt);
-};
-
-function closePopup  (popup)  {
-  document.body.removeChild(popup);
-  document.removeEventListener('keydown', onDocumentEscKeydown);
-}
-
-function openPopup (popup) {
-  document.body.appendChild(popup);
-  document.addEventListener('keydown', onDocumentEscKeydown);
-}
 
 const showPopup = (template) => {
   const popup = template.cloneNode(true);
 
-  openPopup(popup);
+  const onDocumentEscKeydown = (evt) => {
+    if (isEscapeKey(evt)) {
+      evt.preventDefault();
+      closePopup(popup);
+    }
+  };
+
+  function closePopup () {
+    document.body.removeChild(popup);
+    document.removeEventListener('keydown', onDocumentEscKeydown);
+  }
+
+  function openPopup () {
+    document.body.appendChild(popup);
+    document.addEventListener('keydown', onDocumentEscKeydown);
+  }
 
   document.addEventListener('keydown', onDocumentEscKeydown);
+
+  openPopup ();
 
   popup.addEventListener('click', () => {
     closePopup(popup);
