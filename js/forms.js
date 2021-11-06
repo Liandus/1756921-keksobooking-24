@@ -11,8 +11,8 @@ const quantityGuestsEl = formEl.querySelector('#capacity');
 const typeHouseEl = formEl.querySelector('#type');
 const timeInEl = formEl.querySelector('#timein');
 const timeOutEl = formEl.querySelector('#timeout');
-const submitButtonEl = formEl.querySelector('.ad-form__submit');
-const resetButtonEl = formEl.querySelector('.ad-form__reset');
+const submitButton = formEl.querySelector('.ad-form__submit');
+const resetButton = formEl.querySelector('.ad-form__reset');
 const INITIAL_AD_PRICE_VALUE_MIN = 0;
 const AD_PRICE_VALUE_MAX = 1000000;
 const AD_TITLE_LENGTH_MIN = 30;
@@ -20,8 +20,7 @@ const AD_TITLE_LENGTH_MAX = 100;
 userPriceEl.min = INITIAL_AD_PRICE_VALUE_MIN;
 const adPriceValueMin = userPriceEl.min;
 
-const submitForm = (evt) => {
-  evt.preventDefault();
+const submitForm = () => {
   dataSend(
     () => showSuccessPopup(),
     () => showErrorPopup(),
@@ -40,18 +39,9 @@ const onUserPriceInput = () => {
 const onTypeHouseChange = () => {
   setPriceByHouseType(typeHouseEl, userPriceEl);
 };
-//TODO сделал один обработчик, перестала работать синхронизация, попробовать разобраться в чем дело
-/*eslint-disable-next-line no-unused-vars*/
+
 const onTimeChange = (selectTime, changeTime) => {
   synchronizeTime(selectTime, changeTime);
-};
-
-const onTimeInChange = () => {
-  synchronizeTime(timeInEl, timeOutEl);
-};
-
-const onTimeOutChange = () => {
-  synchronizeTime(timeOutEl, timeInEl);
 };
 
 const onSubmitButtonClick = (evt) => {
@@ -62,7 +52,8 @@ const onResetClick = () => {
 };
 
 const onSubmit = (evt) => {
-  submitForm(evt);
+  evt.preventDefault();
+  submitForm();
 };
 
 userAdTitleEl.addEventListener('input', onUserAdTitleInput);
@@ -71,13 +62,17 @@ userPriceEl.addEventListener('input', onUserPriceInput);
 
 typeHouseEl.addEventListener('change', onTypeHouseChange);
 
-timeInEl.addEventListener('change', onTimeInChange);
+timeInEl.addEventListener('change', () => onTimeChange(timeInEl, timeOutEl));
 
-timeOutEl.addEventListener('change', onTimeOutChange);
+timeOutEl.addEventListener('change', () => onTimeChange(timeOutEl, timeInEl));
 
-submitButtonEl.addEventListener('click', onSubmitButtonClick);
+/*timeInEl.addEventListener('change', onTimeInChange);
 
-resetButtonEl.addEventListener('click', onResetClick);
+timeOutEl.addEventListener('change', onTimeOutChange);*/
+
+submitButton.addEventListener('click', onSubmitButtonClick);
+
+resetButton.addEventListener('click', onResetClick);
 
 formEl.addEventListener('submit', onSubmit);
 

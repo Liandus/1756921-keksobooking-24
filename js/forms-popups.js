@@ -2,29 +2,41 @@ import {resetAll} from './utils/reset.js';
 import {isEscapeKey} from './utils/is-escape.js';
 const successPopupTemplate = document.querySelector('#success').content.querySelector('.success');
 const errorPopupTemplate = document.querySelector('#error').content.querySelector('.error');
-const tryAgainButtonEl = document.querySelector('.error__button');
+const tryAgainButton = document.querySelector('.error__button');
 
-const closePopup = (popup) => {
+const close = (evt) => {
+  if (isEscapeKey(evt)) {
+    evt.preventDefault();
+    closePopup();
+  }
+};
+
+const onDocumentEscKeydown = (evt) => {
+  close(evt);
+};
+
+function closePopup  (popup)  {
   document.body.removeChild(popup);
-};
+  document.removeEventListener('keydown', onDocumentEscKeydown);
+}
 
-const addPopup = (popup) => {
+function openPopup (popup) {
   document.body.appendChild(popup);
-};
+  document.addEventListener('keydown', onDocumentEscKeydown);
+}
 
 const showPopup = (template) => {
   const popup = template.cloneNode(true);
-  addPopup(popup);
-  document.addEventListener('keydown', (evt) => {
-    if (isEscapeKey(evt)) {
-      evt.preventDefault();
-      closePopup(popup);
-    }
-  });
-  document.addEventListener('click', () => {
+
+  openPopup(popup);
+
+  document.addEventListener('keydown', onDocumentEscKeydown);
+
+  popup.addEventListener('click', () => {
     closePopup(popup);
   });
-  tryAgainButtonEl.addEventListener('click', () => {
+
+  tryAgainButton.addEventListener('click', () => {
     closePopup(popup);
   });
 };

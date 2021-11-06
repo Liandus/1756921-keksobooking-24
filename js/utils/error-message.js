@@ -1,10 +1,10 @@
 const MESSAGE_SHOW_TIME = 5000;
 const errorMessageTemplate = document.querySelector('#error-connect').content.querySelector('.error-connect');
 
-const showMessage = (message) => {
+const showErrorMessage = (error) => {
   const errorBody = errorMessageTemplate.cloneNode(true);
   const errorMessage = errorBody.querySelector('.error-connect-message');
-  errorMessage.textContent = message;
+  errorMessage.textContent = error;
   document.body.appendChild(errorBody);
 
   setTimeout(() => {
@@ -12,4 +12,4 @@ const showMessage = (message) => {
   }, MESSAGE_SHOW_TIME);
 };
 
-export {showMessage};
+export {showErrorMessage};

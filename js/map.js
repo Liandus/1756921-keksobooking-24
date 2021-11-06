@@ -1,7 +1,7 @@
 import {activateForm, deactivateForm} from './forms-act-deact.js';
 import {showAdvertisement} from './advertisements.js';
 import {dataLoad} from './server-api.js';
-import {showMessage} from './utils/error-message.js';
+import {showErrorMessage} from './utils/error-message.js';
 const addressEl = document.querySelector('#address');
 const MAP_INITIAL_LAT = 35.71247;
 const MAP_INITIAL_LNG = 139.78967;
@@ -76,7 +76,7 @@ const loadToMarkers = (data) => {
   });
 };
 
-dataLoad(loadToMarkers, showMessage);
+dataLoad(loadToMarkers, showErrorMessage);
 
 addressEl.value = getAddress(mainMarker.getLatLng());
 
