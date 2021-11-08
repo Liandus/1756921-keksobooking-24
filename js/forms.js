@@ -22,8 +22,8 @@ const adPriceValueMin = userPriceEl.min;
 
 const submitForm = () => {
   dataSend(
-    () => showSuccessPopup(),
-    () => showErrorPopup(),
+    showSuccessPopup,
+    showErrorPopup,
     new FormData(formEl),
   );
 };

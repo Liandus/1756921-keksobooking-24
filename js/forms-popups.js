@@ -27,15 +27,11 @@ const showPopup = (template) => {
 
   document.addEventListener('keydown', onDocumentEscKeydown);
 
-  openPopup ();
+  openPopup();
 
-  popup.addEventListener('click', () => {
-    closePopup(popup);
-  });
-
-  tryAgainButton.addEventListener('click', () => {
-    closePopup(popup);
-  });
+  popup.addEventListener('click', () => closePopup(popup));
+  //TODO вынести обработчик или проверять на существование
+  tryAgainButton && tryAgainButton.addEventListener('click', () => closePopup(popup));
 };
 
 const showSuccessPopup = () => {
@@ -43,8 +39,6 @@ const showSuccessPopup = () => {
   showPopup(successPopupTemplate);
 };
 
-const showErrorPopup = () => {
-  showPopup(errorPopupTemplate);
-};
+const showErrorPopup = () => showPopup(errorPopupTemplate);
 
 export {showSuccessPopup, showErrorPopup};

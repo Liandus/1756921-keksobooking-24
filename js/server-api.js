@@ -1,7 +1,7 @@
-const loadUrl = 'https://24.javascript.pages.academy/keksobooking/data';
-const sendUrl = 'https://24.javascript.pages.academy/keksobooking';
+const LOAD_URL = 'https://24.javascript.pages.academy/keksobooking/data';
+const SEND_URL = 'https://24.javascript.pages.academy/keksobooking';
 const dataLoad = (onSuccess, onError) => fetch(
-  loadUrl,
+  LOAD_URL,
   {
     method: 'GET',
   },
@@ -22,7 +22,7 @@ const dataLoad = (onSuccess, onError) => fetch(
 
 const dataSend = (onSuccess, onError, body) => {
   fetch(
-    sendUrl,
+    SEND_URL,
     {
       method: 'POST',
       body,
@@ -30,12 +30,12 @@ const dataSend = (onSuccess, onError, body) => {
   )
     .then((response) => {
       if (response.ok) {
-        onSuccess();
+        return onSuccess();
       }
-      throw new Error(onError());
+      return onError();
     })
-    .catch((err) => {
-      () => err;
+    .catch(() => {
+      onError();
     });
 };
 

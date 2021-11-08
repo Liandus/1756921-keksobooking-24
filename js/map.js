@@ -6,6 +6,7 @@ const addressEl = document.querySelector('#address');
 const MAP_INITIAL_LAT = 35.71247;
 const MAP_INITIAL_LNG = 139.78967;
 const MAP_INITIAL_ZOOM = 12;
+const ADVERTISEMENT_COUNT =10;
 
 const getAddress = (markerCoordinate) => {
   const markerPoints = Object.values(markerCoordinate);
@@ -71,9 +72,11 @@ const mainMarker = L.marker(
 mainMarker.addTo(map);
 
 const loadToMarkers = (data) => {
-  data.forEach((dataEl) => {
-    createMarkers(dataEl);
-  });
+  data
+    .slice(0, ADVERTISEMENT_COUNT)
+    .forEach((dataEl) => {
+      createMarkers(dataEl);
+    });
 };
 
 dataLoad(loadToMarkers, showErrorMessage);
