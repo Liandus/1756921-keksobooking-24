@@ -70,6 +70,8 @@ submitButton.addEventListener('click', onSubmitButtonClick);
 
 resetButton.addEventListener('click', onResetClick);
 
-formEl.addEventListener('submit', onSubmit);
+const submitListener = () => {formEl.addEventListener('submit', onSubmit);};
 
-export {filterEl, formEl};
+//formEl.addEventListener('submit', onSubmit);
+
+export {filterEl, formEl, submitListener};

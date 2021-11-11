@@ -12,12 +12,6 @@ const elevatorEl = document.querySelector('#filter-elevator');
 const conditionerEl = document.querySelector('#filter-conditioner');
 const LOW_PRICE_BORDER = 10000;
 const HIGH_PRICE_BORDER = 50000;
-const ONE_ROOM = 1;
-const TWO_ROOMS = 2;
-const THREE_ROOMS = 3;
-const ONE_GUEST = 1;
-const TWO_GUESTS = 2;
-const ZERO_GUESTS = 0;
 const RERENDER_DELAY = 700;
 
 const NamePriceValue = {
@@ -111,17 +105,17 @@ const housingRoomsFilter = (dataEl) => {
     case NameRoomsValue.ANY_ROOMS:
       return dataEl;
     case NameRoomsValue.ONE_ROOM:
-      if (Number(rooms) === ONE_ROOM) {
+      if (rooms === Number(NameRoomsValue.ONE_ROOM)) {
         return dataEl;
       }
       break;
     case NameRoomsValue.TWO_ROOMS:
-      if (Number(rooms) === TWO_ROOMS) {
+      if (rooms === Number(NameRoomsValue.TWO_ROOMS)) {
         return dataEl;
       }
       break;
     case NameRoomsValue.THREE_ROOMS:
-      if (Number(rooms) === THREE_ROOMS) {
+      if (rooms === Number(NameRoomsValue.THREE_ROOMS)) {
         return dataEl;
       }
       break;
@@ -136,17 +130,17 @@ const housingGuestsFilter = (dataEl) => {
     case NameGuestsValue.ANY_GUESTS:
       return dataEl;
     case NameGuestsValue.ONE_GUEST:
-      if (Number(guests) === ONE_GUEST) {
+      if (guests === Number(NameGuestsValue.ONE_GUEST)) {
         return dataEl;
       }
       break;
     case NameGuestsValue.TWO_GUESTS:
-      if (Number(guests) === TWO_GUESTS) {
+      if (guests === Number(NameGuestsValue.TWO_GUESTS)) {
         return dataEl;
       }
       break;
     case NameGuestsValue.NO_GUESTS:
-      if (Number(guests) === ZERO_GUESTS) {
+      if (guests === Number(NameGuestsValue.NO_GUESTS)) {
         return dataEl;
       }
       break;

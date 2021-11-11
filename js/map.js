@@ -1,8 +1,6 @@
-import {activateForm, deactivateForm} from './forms-act-deact.js';
 import {showAdvertisement} from './advertisements.js';
-import {dataLoad} from './server-api.js';
-import {showErrorMessage} from './utils/error-message.js';
 import {callListener} from './filter.js';
+import {activateForm, deactivateForm} from './forms-act-deact.js';
 const addressEl = document.querySelector('#address');
 const MAP_INITIAL_LAT = 35.71247;
 const MAP_INITIAL_LNG = 139.78967;
@@ -84,8 +82,6 @@ const loadToMarkers = (data) => {
   callListener(data, ADVERTISEMENT_COUNT, createMarkers);
 };
 
-dataLoad(loadToMarkers, showErrorMessage);
-
 addressEl.value = getAddress(mainMarker.getLatLng());
 
 mainMarker.on('moveend', (evt) => {
@@ -108,4 +104,4 @@ const mapReset = () => {
   addressEl.value = getAddress(mainMarker.getLatLng());
 };
 
-export {mapReset, markerGroup};
+export {mapReset, markerGroup, loadToMarkers};
