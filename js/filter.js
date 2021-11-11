@@ -18,6 +18,7 @@ const THREE_ROOMS = 3;
 const ONE_GUEST = 1;
 const TWO_GUESTS = 2;
 const ZERO_GUESTS = 0;
+const RERENDER_DELAY = 700;
 
 const NamePriceValue = {
   ANY_PRICE: 'any',
@@ -169,9 +170,22 @@ const onFilterChange = (data, adCount, createFunc) => {
     });
 };
 
-//TODO придумать название
+const debounce = (debouncedFunc, time) => {
+  let timeOut;
+
+  return function () {
+    const fnCall = () => {
+      debouncedFunc.apply(this, arguments);
+    };
+
+    clearTimeout(timeOut);
+
+    timeOut = setTimeout(fnCall, time);
+  };
+};
+
 const callListener = (data, adCount, createFunc) => {
-  filterFormEl.addEventListener('change', () => onFilterChange(data, adCount, createFunc));
+  filterFormEl.addEventListener('change', debounce(() => onFilterChange(data, adCount, createFunc), RERENDER_DELAY));
 };
 
 export {callListener};
