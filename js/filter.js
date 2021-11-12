@@ -32,6 +32,8 @@ const NameGuestsValue = {
   NO_GUESTS: '0',
 };
 
+const housingFeatureFilter = (dataEl, input) => input.checked && dataEl.offer.features && dataEl.offer.features.includes(input.value) || !input.checked;
+
 const getAdvertisementRank = (advertisement) => {
   const advertisementFeatures = advertisement.offer.features;
   let rank = 0;
@@ -153,6 +155,12 @@ const onFilterChange = (data, adCount, createFunc) => {
     .filter((dataEl) => housingPriceFilter(dataEl))
     .filter((dataEl) => housingRoomsFilter(dataEl))
     .filter((dataEl) => housingGuestsFilter(dataEl))
+    .filter((dataEl) => housingFeatureFilter(dataEl, wifiEl))
+    .filter((dataEl) => housingFeatureFilter(dataEl, washerEl))
+    .filter((dataEl) => housingFeatureFilter(dataEl, dishwasherEl))
+    .filter((dataEl) => housingFeatureFilter(dataEl, conditionerEl))
+    .filter((dataEl) => housingFeatureFilter(dataEl, elevatorEl))
+    .filter((dataEl) => housingFeatureFilter(dataEl, parkingEl))
     .slice()
     .sort(compareAdvertisiment);
 
