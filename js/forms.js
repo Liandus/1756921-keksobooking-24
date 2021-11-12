@@ -72,6 +72,4 @@ resetButton.addEventListener('click', onResetClick);
 
 const submitListener = () => {formEl.addEventListener('submit', onSubmit);};
 
-//formEl.addEventListener('submit', onSubmit);
-
 export {filterEl, formEl, submitListener};

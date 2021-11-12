@@ -15,21 +15,18 @@ const HIGH_PRICE_BORDER = 50000;
 const RERENDER_DELAY = 700;
 
 const NamePriceValue = {
-  ANY_PRICE: 'any',
   LOW_PRICE: 'low',
   MIDDLE_PRICE: 'middle',
   HIGH_PRICE: 'high',
 };
 
 const NameRoomsValue = {
-  ANY_ROOMS: 'any',
   ONE_ROOM: '1',
   TWO_ROOMS: '2',
   THREE_ROOMS: '3',
 };
 
 const NameGuestsValue = {
-  ANY_GUESTS: 'any',
   ONE_GUEST: '1',
   TWO_GUESTS: '2',
   NO_GUESTS: '0',
@@ -40,11 +37,13 @@ const getAdvertisementRank = (advertisement) => {
   let rank = 0;
 
   const getRank = (feature) => {
-    if (feature.checked) {
-      if (advertisementFeatures && advertisementFeatures.includes(feature.value)) {
-        return rank += 1;
-      }
+    const checkedFeature = feature.checked;
+    const featureValue = feature.value;
+
+    if (checkedFeature && advertisementFeatures && advertisementFeatures.includes(featureValue)) {
+      return rank += 1;
     }
+
     return rank;
   };
 
@@ -77,8 +76,6 @@ const housingPriceFilter = (dataEl) => {
   const priceOprtion = housingPriceEl.value;
 
   switch(priceOprtion) {
-    case NamePriceValue.ANY_PRICE:
-      return dataEl;
     case NamePriceValue.LOW_PRICE:
       if (Number(price) < LOW_PRICE_BORDER) {
         return dataEl;
@@ -94,6 +91,8 @@ const housingPriceFilter = (dataEl) => {
         return dataEl;
       }
       break;
+    default:
+      return dataEl;
   }
 };
 
@@ -102,8 +101,6 @@ const housingRoomsFilter = (dataEl) => {
   const roomOprtion = housingRoomsEl.value;
 
   switch(roomOprtion) {
-    case NameRoomsValue.ANY_ROOMS:
-      return dataEl;
     case NameRoomsValue.ONE_ROOM:
       if (rooms === Number(NameRoomsValue.ONE_ROOM)) {
         return dataEl;
@@ -119,6 +116,8 @@ const housingRoomsFilter = (dataEl) => {
         return dataEl;
       }
       break;
+    default:
+      return dataEl;
   }
 };
 
@@ -127,8 +126,6 @@ const housingGuestsFilter = (dataEl) => {
   const guestsOprtion = housingGuestsEl.value;
 
   switch(guestsOprtion) {
-    case NameGuestsValue.ANY_GUESTS:
-      return dataEl;
     case NameGuestsValue.ONE_GUEST:
       if (guests === Number(NameGuestsValue.ONE_GUEST)) {
         return dataEl;
@@ -144,6 +141,8 @@ const housingGuestsFilter = (dataEl) => {
         return dataEl;
       }
       break;
+    default:
+      return dataEl;
   }
 };
 

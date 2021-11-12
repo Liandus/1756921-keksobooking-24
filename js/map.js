@@ -1,6 +1,5 @@
 import {showAdvertisement} from './advertisements.js';
 import {callListener} from './filter.js';
-import {activateForm, deactivateForm} from './forms-act-deact.js';
 const addressEl = document.querySelector('#address');
 const MAP_INITIAL_LAT = 35.71247;
 const MAP_INITIAL_LNG = 139.78967;
@@ -12,12 +11,7 @@ const getAddress = (markerCoordinate) => {
   return `${markerPoints[0].toFixed(5)}, ${markerPoints[1].toFixed(5)}`;
 };
 
-deactivateForm();
-
 const map = L.map('map-canvas')
-  .on('load', () => {
-    activateForm();
-  })
   .setView({
     lat: MAP_INITIAL_LAT,
     lng: MAP_INITIAL_LNG,
@@ -88,6 +82,12 @@ mainMarker.on('moveend', (evt) => {
   addressEl.value = getAddress(evt.target.getLatLng());
 });
 
+const loadMap = (activate) => {
+  map.on('load', () => {
+    activate();
+  });
+};
+
 const mapReset = () => {
   mainMarker.setLatLng({
     lat: MAP_INITIAL_LAT,
@@ -104,4 +104,4 @@ const mapReset = () => {
   addressEl.value = getAddress(mainMarker.getLatLng());
 };
 
-export {mapReset, markerGroup, loadToMarkers};
+export {mapReset, markerGroup, loadToMarkers, loadMap};
