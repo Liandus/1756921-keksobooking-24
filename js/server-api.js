@@ -1,6 +1,6 @@
 const LOAD_URL = 'https://24.javascript.pages.academy/keksobooking/data';
 const SEND_URL = 'https://24.javascript.pages.academy/keksobooking';
-const dataLoad = (onSuccess, onError) => fetch(
+const dataLoad = (onSuccess, onError, activate) => fetch(
   LOAD_URL,
   {
     method: 'GET',
@@ -15,6 +15,9 @@ const dataLoad = (onSuccess, onError) => fetch(
   })
   .then((data) => {
     onSuccess(data);
+  })
+  .then(() => {
+    activate();
   })
   .catch((err) => {
     onError(err);

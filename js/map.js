@@ -82,12 +82,6 @@ mainMarker.on('moveend', (evt) => {
   addressEl.value = getAddress(evt.target.getLatLng());
 });
 
-const loadMap = (activate) => {
-  map.on('load', () => {
-    activate();
-  });
-};
-
 const mapReset = () => {
   mainMarker.setLatLng({
     lat: MAP_INITIAL_LAT,
@@ -104,4 +98,4 @@ const mapReset = () => {
   addressEl.value = getAddress(mainMarker.getLatLng());
 };
 
-export {mapReset, markerGroup, loadToMarkers, loadMap};
+export {mapReset, markerGroup, loadToMarkers};
