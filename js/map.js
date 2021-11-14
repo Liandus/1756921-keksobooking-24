@@ -1,5 +1,8 @@
 import {showAdvertisement} from './advertisements.js';
 import {callListener} from './filter.js';
+import {dataLoad} from './server-api.js';
+import {activateForm} from './forms-act-deact.js';
+import {showErrorMessage} from './utils/error-message.js';
 const addressEl = document.querySelector('#address');
 const MAP_INITIAL_LAT = 35.71247;
 const MAP_INITIAL_LNG = 139.78967;
@@ -83,6 +86,8 @@ mainMarker.on('moveend', (evt) => {
 });
 
 const mapReset = () => {
+  markerGroup.clearLayers();
+  dataLoad(loadToMarkers, showErrorMessage, activateForm);
   mainMarker.setLatLng({
     lat: MAP_INITIAL_LAT,
     lng: MAP_INITIAL_LNG,
