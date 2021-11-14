@@ -15,8 +15,6 @@ const dataLoad = (onSuccess, onError, activate) => fetch(
   })
   .then((data) => {
     onSuccess(data);
-  })
-  .then(() => {
     activate();
   })
   .catch((err) => {
