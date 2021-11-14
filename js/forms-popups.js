@@ -30,7 +30,7 @@ const showPopup = (template) => {
   openPopup();
 
   popup.addEventListener('click', () => closePopup(popup));
-  //TODO вынести обработчик или проверять на существование
+
   tryAgainButton && tryAgainButton.addEventListener('click', () => closePopup(popup));
 };
 
