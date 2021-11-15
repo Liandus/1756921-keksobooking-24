@@ -32,7 +32,14 @@ const NameGuestsValue = {
   NO_GUESTS: '0',
 };
 
-const housingFeatureFilter = (dataEl, input) => input.checked && dataEl.offer.features && dataEl.offer.features.includes(input.value) || !input.checked;
+const filterHousingFeature = (data, input) => {
+  const filteredData = data.filter((dataEl) => {
+    if (input.checked && dataEl.offer.features && dataEl.offer.features.includes(input.value) || !input.checked) {
+      return dataEl;
+    }
+  });
+  return filteredData;
+};
 
 const getAdvertisementRank = (advertisement) => {
   const advertisementFeatures = advertisement.offer.features;
@@ -71,100 +78,120 @@ const compareAdvertisiment = (advertisimentA, advertisimentB) => {
   return rankB - rankA;
 };
 
-const housingTypeFilter = (dataEl) => dataEl.offer.type === housingTypeEl.value || housingTypeEl.value === 'any';
-
-const housingPriceFilter = (dataEl) => {
-  const price = dataEl.offer.price;
-  const priceOprtion = housingPriceEl.value;
-
-  switch(priceOprtion) {
-    case NamePriceValue.LOW_PRICE:
-      if (Number(price) < LOW_PRICE_BORDER) {
-        return dataEl;
-      }
-      break;
-    case NamePriceValue.MIDDLE_PRICE:
-      if (Number(price) >= LOW_PRICE_BORDER && Number(price) < HIGH_PRICE_BORDER) {
-        return dataEl;
-      }
-      break;
-    case NamePriceValue.HIGH_PRICE:
-      if (Number(price) > HIGH_PRICE_BORDER) {
-        return dataEl;
-      }
-      break;
-    default:
-      return dataEl;
-  }
+const filterHousingType = (data) => {
+  const filteredData = data.filter((dataEl) => dataEl.offer.type === housingTypeEl.value || housingTypeEl.value === 'any');
+  return filteredData;
 };
 
-const housingRoomsFilter = (dataEl) => {
-  const rooms = dataEl.offer.rooms;
-  const roomOprtion = housingRoomsEl.value;
+const filterHousingPrice = (data) => {
+  const filteredData = data.filter((dataEl) => {
+    const price = dataEl.offer.price;
+    const priceOprtion = housingPriceEl.value;
 
-  switch(roomOprtion) {
-    case NameRoomsValue.ONE_ROOM:
-      if (rooms === Number(NameRoomsValue.ONE_ROOM)) {
+    switch(priceOprtion) {
+      case NamePriceValue.LOW_PRICE:
+        if (Number(price) < LOW_PRICE_BORDER) {
+          return dataEl;
+        }
+        break;
+      case NamePriceValue.MIDDLE_PRICE:
+        if (Number(price) >= LOW_PRICE_BORDER && Number(price) < HIGH_PRICE_BORDER) {
+          return dataEl;
+        }
+        break;
+      case NamePriceValue.HIGH_PRICE:
+        if (Number(price) > HIGH_PRICE_BORDER) {
+          return dataEl;
+        }
+        break;
+      default:
         return dataEl;
-      }
-      break;
-    case NameRoomsValue.TWO_ROOMS:
-      if (rooms === Number(NameRoomsValue.TWO_ROOMS)) {
-        return dataEl;
-      }
-      break;
-    case NameRoomsValue.THREE_ROOMS:
-      if (rooms === Number(NameRoomsValue.THREE_ROOMS)) {
-        return dataEl;
-      }
-      break;
-    default:
-      return dataEl;
-  }
+    }
+  });
+
+  return filteredData;
 };
 
-const housingGuestsFilter = (dataEl) => {
-  const guests = dataEl.offer.guests;
-  const guestsOprtion = housingGuestsEl.value;
+const filterHousingRooms = (data) => {
+  const filteredData = data.filter((dataEl) => {
+    const rooms = dataEl.offer.rooms;
+    const roomOprtion = housingRoomsEl.value;
 
-  switch(guestsOprtion) {
-    case NameGuestsValue.ONE_GUEST:
-      if (guests === Number(NameGuestsValue.ONE_GUEST)) {
+    switch(roomOprtion) {
+      case NameRoomsValue.ONE_ROOM:
+        if (rooms === Number(NameRoomsValue.ONE_ROOM)) {
+          return dataEl;
+        }
+        break;
+      case NameRoomsValue.TWO_ROOMS:
+        if (rooms === Number(NameRoomsValue.TWO_ROOMS)) {
+          return dataEl;
+        }
+        break;
+      case NameRoomsValue.THREE_ROOMS:
+        if (rooms === Number(NameRoomsValue.THREE_ROOMS)) {
+          return dataEl;
+        }
+        break;
+      default:
         return dataEl;
-      }
-      break;
-    case NameGuestsValue.TWO_GUESTS:
-      if (guests === Number(NameGuestsValue.TWO_GUESTS)) {
+    }
+  });
+  return filteredData;
+};
+
+const filterHousingGuests = (data) => {
+  const filteredData = data.filter((dataEl) => {
+    const guests = dataEl.offer.guests;
+    const guestsOprtion = housingGuestsEl.value;
+
+    switch(guestsOprtion) {
+      case NameGuestsValue.ONE_GUEST:
+        if (guests === Number(NameGuestsValue.ONE_GUEST)) {
+          return dataEl;
+        }
+        break;
+      case NameGuestsValue.TWO_GUESTS:
+        if (guests === Number(NameGuestsValue.TWO_GUESTS)) {
+          return dataEl;
+        }
+        break;
+      case NameGuestsValue.NO_GUESTS:
+        if (guests === Number(NameGuestsValue.NO_GUESTS)) {
+          return dataEl;
+        }
+        break;
+      default:
         return dataEl;
-      }
-      break;
-    case NameGuestsValue.NO_GUESTS:
-      if (guests === Number(NameGuestsValue.NO_GUESTS)) {
-        return dataEl;
-      }
-      break;
-    default:
-      return dataEl;
-  }
+    }
+  });
+  return filteredData;
+};
+
+const filterHousingOptions = (advertisementsData) => {
+  let filterData = advertisementsData;
+
+  filterData = filterHousingType(filterData);
+  filterData = filterHousingPrice(filterData);
+  filterData = filterHousingRooms(filterData);
+  filterData = filterHousingGuests(filterData);
+  filterData = filterHousingFeature(filterData, wifiEl);
+  filterData = filterHousingFeature(filterData, washerEl);
+  filterData = filterHousingFeature(filterData, dishwasherEl);
+  filterData = filterHousingFeature(filterData, conditionerEl);
+  filterData = filterHousingFeature(filterData, elevatorEl);
+  filterData = filterHousingFeature(filterData, parkingEl);
+
+  return filterData;
 };
 
 const onFilterChange = (data, adCount, createFunc) => {
   markerGroup.clearLayers();
-  const filter = data
-    .filter((dataEl) => housingTypeFilter(dataEl))
-    .filter((dataEl) => housingPriceFilter(dataEl))
-    .filter((dataEl) => housingRoomsFilter(dataEl))
-    .filter((dataEl) => housingGuestsFilter(dataEl))
-    .filter((dataEl) => housingFeatureFilter(dataEl, wifiEl))
-    .filter((dataEl) => housingFeatureFilter(dataEl, washerEl))
-    .filter((dataEl) => housingFeatureFilter(dataEl, dishwasherEl))
-    .filter((dataEl) => housingFeatureFilter(dataEl, conditionerEl))
-    .filter((dataEl) => housingFeatureFilter(dataEl, elevatorEl))
-    .filter((dataEl) => housingFeatureFilter(dataEl, parkingEl))
+  const filteredData = filterHousingOptions(data)
     .slice()
     .sort(compareAdvertisiment);
 
-  filter
+  filteredData
     .slice(0, adCount)
     .forEach((dataEl) => {
       createFunc(dataEl);

@@ -20,6 +20,10 @@ const AD_TITLE_LENGTH_MAX = 100;
 userPriceEl.min = INITIAL_AD_PRICE_VALUE_MIN;
 const adPriceValueMin = userPriceEl.min;
 
+const resetPricePlaceholder = () => {
+  userPriceEl.placeholder = INITIAL_AD_PRICE_VALUE_MIN;
+};
+
 const submitForm = () => {
   dataSend(
     showSuccessPopup,
@@ -72,4 +76,4 @@ resetButton.addEventListener('click', onResetClick);
 
 const setSubmitListener = () => {formEl.addEventListener('submit', onSubmit);};
 
-export {filterEl, formEl, setSubmitListener};
+export {filterEl, formEl, resetPricePlaceholder, setSubmitListener};
