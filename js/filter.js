@@ -32,7 +32,7 @@ const NameGuestsValue = {
   NO_GUESTS: '0',
 };
 
-const filterHousingFeature = (advertisementEl, input) => input.checked && advertisementEl.offer.features && advertisementEl.offer.features.includes(input.value) || !input.checked;
+const checkHousingFeature = (advertisementEl, input) => input.checked && advertisementEl.offer.features && advertisementEl.offer.features.includes(input.value) || !input.checked;
 
 const getAdvertisementRank = (advertisement) => {
   const advertisementFeatures = advertisement.offer.features;
@@ -71,10 +71,9 @@ const compareAdvertisiment = (advertisimentA, advertisimentB) => {
   return rankB - rankA;
 };
 
-const filterHousingType = (advertisementEl) => advertisementEl.offer.type === housingTypeEl.value || housingTypeEl.value === 'any';
+const checkHousingType = (advertisementEl) => advertisementEl.offer.type === housingTypeEl.value || housingTypeEl.value === 'any';
 
-
-const filterHousingPrice = (advertisementEl) => {
+const checkHousingPrice = (advertisementEl) => {
   const price = advertisementEl.offer.price;
   const priceOprtion = housingPriceEl.value;
 
@@ -97,10 +96,9 @@ const filterHousingPrice = (advertisementEl) => {
     default:
       return advertisementEl;
   }
-
 };
 
-const filterHousingRooms = (advertisementEl) => {
+const checkHousingRooms = (advertisementEl) => {
   const rooms = advertisementEl.offer.rooms;
   const roomOprtion = housingRoomsEl.value;
 
@@ -125,7 +123,7 @@ const filterHousingRooms = (advertisementEl) => {
   }
 };
 
-const filterHousingGuests = (advertisementEl) => {
+const checkHousingGuests = (advertisementEl) => {
   const guests = advertisementEl.offer.guests;
   const guestsOprtion = housingGuestsEl.value;
 
@@ -152,10 +150,10 @@ const filterHousingGuests = (advertisementEl) => {
 
 const onFilterChange = (data, adCount, createFunc) => {
   markerGroup.clearLayers();
-  const filteredData = data.filter((advertisementEl) => filterHousingType(advertisementEl) && filterHousingPrice(advertisementEl)
-  && filterHousingRooms(advertisementEl) && filterHousingGuests (advertisementEl) && filterHousingFeature(advertisementEl, wifiEl) && filterHousingFeature(advertisementEl, washerEl)
-  && filterHousingFeature(advertisementEl, dishwasherEl) && filterHousingFeature(advertisementEl, conditionerEl)
-  && filterHousingFeature(advertisementEl, elevatorEl) && filterHousingFeature(advertisementEl, parkingEl));
+  const filteredData = data.filter((advertisementEl) => checkHousingType(advertisementEl) && checkHousingPrice(advertisementEl)
+  && checkHousingRooms(advertisementEl) && checkHousingGuests (advertisementEl) && checkHousingFeature(advertisementEl, wifiEl) && checkHousingFeature(advertisementEl, washerEl)
+  && checkHousingFeature(advertisementEl, dishwasherEl) && checkHousingFeature(advertisementEl, conditionerEl)
+  && checkHousingFeature(advertisementEl, elevatorEl) && checkHousingFeature(advertisementEl, parkingEl));
 
   filteredData
     .slice()
